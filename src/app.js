@@ -57,7 +57,7 @@ function render(list) {
   });
   // TODO (baseline): Update stats to reflect the displayed list instead of full entries
   // Replace 'entries' below with 'list' parameter to show filtered stats
-  const count = entries.length;
+  const count = list.length;
   const avg = meanLength(entries.map((e) => e.v));
   statsEl.textContent = `Count: ${count} | Mean length: ${avg.toFixed(2)} chars`;
 }
@@ -122,6 +122,17 @@ searchInput.addEventListener("input", () => {
   // TODO: Clear any existing timer
   // TODO: Set a new timer to filter and render after 300ms delay
   // Hint: Use setTimeout and call searchEntries() then render()
+
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+  
+  debounceTimer = setTimeout(() => {
+    const q = searchInput.value;
+    const list = q ? searchEntries(entries, q) : entries;
+    render(list);
+  }, 300);
+
 });
 
 // TODO (hard mode): Add keyboard shortcuts.

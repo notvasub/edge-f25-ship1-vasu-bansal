@@ -35,7 +35,7 @@
 // eslint-disable-next-line no-unused-vars
 export function addEntry(entries, text) {
 
-    trimmed_text = text.trim();
+   let trimmed_text = text.trim();
     if (trimmed_text === "") {
         throw new Error("Text is empty");
     }
