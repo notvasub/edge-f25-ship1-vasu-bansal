@@ -142,21 +142,39 @@ document.addEventListener("keydown", (event) => {
 
   // TODO: Handle Enter key in add input - add entry if non-empty
   if (key === "Enter" && document.activeElement === entryInput) {
-    // Your code here
+    const raw = entryInput.value;
+    try {
+      const updated = addEntry(entries, raw);
+      entries = updated;
+      saveEntries(entries);
+      entryInput.value = "";
+    } catch (err) {
+      alert(err && err.message ? err.message : String(err));
+    }
   }
 
   // TODO: Handle Ctrl/Cmd+K - focus the search input
   if (isCtrlOrCmd && key === "k") {
-    // Your code here
+    searchInput.focus();
+    searchInput.value = "";
+    const q = searchInput.value;
+    const list = q ? searchEntries(entries, q) : entries;
+    render(list);
   }
 
   // TODO: Handle Escape - clear search box and restore full list
   if (key === "Escape") {
-    // Your code here
+    searchInput.value = "";
+    const q = searchInput.value;
+    const list = q ? searchEntries(entries, q) : entries;
+    render(list);
   }
 
   // TODO: Handle Ctrl/Cmd+Backspace - clear all entries with confirmation
   if (isCtrlOrCmd && key === "Backspace") {
-    // Your code here
+    if (!window.confirm("This will erase all entries. Continue?")) return;
+    clearEntries();
+    entries = [];
+    render(entries);
   }
 });
