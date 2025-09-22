@@ -34,8 +34,15 @@
  */
 // eslint-disable-next-line no-unused-vars
 export function addEntry(entries, text) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("addEntry() not implemented yet");
+
+    trimmed_text = text.trim();
+    if (trimmed_text === "") {
+        throw new Error("Text is empty");
+    }
+    const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+    const new_entry = { t: timestamp, v: trimmed_text };
+    return [new_entry, ...entries];
+
 }
 
 /**
@@ -53,8 +60,13 @@ export function addEntry(entries, text) {
  */
 // eslint-disable-next-line no-unused-vars
 export function deleteEntry(entries, index) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("deleteEntry() not implemented yet");
+
+  if (index < 1 || index > entries.length) {
+    return entries;
+  }
+  // return entries.slice(0, index - 1).concat(entries.slice(index)); Old method, really time complex. 
+  return entries.filter((_, i) => i !== index - 1);
+
 }
 
 /**
