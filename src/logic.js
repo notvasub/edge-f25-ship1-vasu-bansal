@@ -85,6 +85,15 @@ export function deleteEntry(entries, index) {
  */
 // eslint-disable-next-line no-unused-vars
 export function searchEntries(entries, query) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("searchEntries() not implemented yet");
+
+  if (!query) {
+    return entries;
+  }
+
+  const lowerQuery = query.toLowerCase();
+
+  return entries.filter(entry =>
+    entry.v.toLowerCase().includes(lowerQuery)
+  );
+
 }
